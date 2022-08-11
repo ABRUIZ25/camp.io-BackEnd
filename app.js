@@ -6,12 +6,32 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var express = require("express");
+
+
+
+
+
 
 var app = express();
 
 const cors = require("cors");
 app.use(cors());
 app.options("\*", cors());
+
+var { mongoConnect } = require('./mongo.js');
+mongoConnect();
+
+var authRouter = require('./routes/auth');
+
+var adminRouter = require('./routes/admin')
+var campsRouter = require('./routes/camps')
+
+
+
+
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -25,6 +45,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/auth', authRouter);
+app.use('/admin', adminRouter)
+app.use('/camps', campsRouter)
+
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -43,3 +68,4 @@ app.use(function (err, req, res, next) {
 });
 
 module.exports = app;
+
