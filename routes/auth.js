@@ -20,8 +20,9 @@ const createUser = async (username, firstName, lastName, phoneNumber, hash, camp
             phoneNumber: phoneNumber,
             uuid: uuid()
 
-        }
 
+        }
+        console.log('hi')
         await collection.insertOne(user)
 
         return true;
